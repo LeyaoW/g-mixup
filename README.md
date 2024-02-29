@@ -40,12 +40,24 @@ We use the dataset built in torch_geometric. The dataset will be downloaded auto
 
 4. Run Experiments
 ```txt
-   run the run_vinilla.sh for vinilla GIN.
+   run the run_vinilla.sh for vanilla GIN.
    run the run_gmixup.sh for g-mixup.
 ```
 
 
-## 3. Cite Our Paper
+
+## 3. Open Question
+
+Why is the standard deviation of graph classification so large? It is shown that the standard deviation of the graph classification task is significant. However, the reason for it still remains unclear, which may be related to the size of the GNN or the quality of the datasets. We have also observed this phenomenon, and other papers [1][2] have reported a similar phenomenon as well. So, it is still a challenging problem that has not yet been solved.
+
+
+[1] Xu, Keyulu, et al. "How Powerful are Graph Neural Networks?." International Conference on Learning Representations. 2019.
+[2] Bianchi, Filippo Maria, et al. "Spectral clustering with graph neural networks for graph pooling." International conference on machine learning. PMLR, 2020.
+
+
+
+
+## 4. Cite Our Paper
 
 If you use this code in your research, please cite our paper.
 
@@ -56,4 +68,3 @@ If you use this code in your research, please cite our paper.
   journal={arXiv preprint arXiv:2202.07179},
   year={2022}
 }
-```
