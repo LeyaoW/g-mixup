@@ -6,10 +6,10 @@ import torch_geometric.transforms as T
 from torch_geometric.utils import degree, to_dense_adj
 import torch.nn.functional as F
 import torch
-import random
 
 from torch_geometric.utils import dense_to_sparse
 from torch_geometric.data import Data
+import secrets
 
 
 class NormalizedDegree(object):
@@ -274,7 +274,7 @@ def two_x_graphons_mixup(two_x_graphons, la=0.5, num_sample=20):
 def graphon_mixup(dataset, la=0.5, num_sample=20):
     graphons = estimate_graphon(dataset, universal_svd)
 
-    two_graphons = random.sample(graphons, 2)
+    two_graphons = secrets.SystemRandom().sample(graphons, 2)
     # for label, graphon in two_graphons:
     #     print( label, graphon )
     # print(two_graphons[0][0])
