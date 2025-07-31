@@ -11,8 +11,6 @@ from torch_geometric.datasets import TUDataset
 from torch_geometric.data import DataLoader
 from torch_geometric.utils import degree
 from torch.autograd import Variable
-
-import random
 from torch.optim.lr_scheduler import StepLR
 
 
@@ -22,6 +20,7 @@ from graphon_estimator import universal_svd
 from models import GIN
 
 import argparse
+import secrets
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -180,8 +179,8 @@ if __name__ == '__main__':
     dataset = prepare_dataset_onehot_y(dataset)
 
 
-    random.seed(seed)
-    random.shuffle( dataset )
+    secrets.SystemRandom().seed(seed)
+    secrets.SystemRandom().shuffle(dataset )
 
     train_nums = int(len(dataset) * 0.7)
     train_val_nums = int(len(dataset) * 0.8)
@@ -217,12 +216,12 @@ if __name__ == '__main__':
         num_sample = int( train_nums * aug_ratio / aug_num )
         lam_list = np.random.uniform(low=lam_range[0], high=lam_range[1], size=(aug_num,))
 
-        random.seed(seed)
+        secrets.SystemRandom().seed(seed)
         new_graph = []
         for lam in lam_list:
             logger.info( f"lam: {lam}" )
             logger.info(f"num_sample: {num_sample}")
-            two_graphons = random.sample(graphons, 2)
+            two_graphons = secrets.SystemRandom().sample(graphons, 2)
             new_graph += two_graphons_mixup(two_graphons, la=lam, num_sample=num_sample)
             logger.info(f"label: {new_graph[-1].y}")
 
@@ -248,7 +247,7 @@ if __name__ == '__main__':
     num_classes = dataset[0].y.shape[0]
 
     train_dataset = dataset[:train_nums]
-    random.shuffle(train_dataset)
+    secrets.SystemRandom().shuffle(train_dataset)
     val_dataset = dataset[train_nums:train_val_nums]
     test_dataset = dataset[train_val_nums:]
 
